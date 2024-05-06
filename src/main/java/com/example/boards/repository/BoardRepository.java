@@ -1,6 +1,6 @@
-package repository;
+package com.example.boards.repository;
 
-import domain.Board;
+import com.example.boards.domain.Board;
 import org.springframework.data.jpa.repository.JpaRepository;
 
 

@@ -1,4 +1,4 @@
-package dto;
+package com.example.boards.dto;
 
 import lombok.Getter;
 import lombok.Setter;

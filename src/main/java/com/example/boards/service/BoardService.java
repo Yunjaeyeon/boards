@@ -1,12 +1,12 @@
-package service;
+package com.example.boards.service;
 
-import domain.Board;
-import dto.BoardForm;
+import com.example.boards.dto.BoardForm;
+import com.example.boards.domain.Board;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-import repository.BoardRepository;
+import com.example.boards.repository.BoardRepository;
 
 @Slf4j
 @Service
@@ -14,7 +14,7 @@ import repository.BoardRepository;
 @RequiredArgsConstructor
 public class BoardService {
 
-    private BoardRepository boardRepository;
+    private final BoardRepository boardRepository;
 
     public void createBoard(BoardForm boardForm) {
         boardRepository.save(
