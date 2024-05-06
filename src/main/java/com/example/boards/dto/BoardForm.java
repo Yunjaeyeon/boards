@@ -1,5 +1,7 @@
 package com.example.boards.dto;
 
+import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.NotEmpty;
 import jakarta.validation.constraints.NotNull;
 import lombok.Getter;
 import lombok.Setter;
@@ -8,11 +10,11 @@ import lombok.Setter;
 @Setter
 public class BoardForm {
     //@NotNull - null 허용 x, @NotBlank - string 타입 빈 값 허용 x, @NotEmpty - null, 빈 문자열 허용x
-    @NotNull
+    @NotBlank
     private String userId;
-    @NotNull
+    @NotBlank
     private String userName;
-    @NotNull
+    @NotBlank
     private String password;
     private String title;
     private String content;
