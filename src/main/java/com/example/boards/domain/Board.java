@@ -14,13 +14,15 @@ public class Board {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
+    private String userId;
     private String userName;
     private String password;
     private String title;
     private String content;
 
     @Builder
-    public Board(String userName, String password, String title, String content) {
+    public Board(String userId, String userName, String password, String title, String content) {
+        this.userId = userId;
         this.userName = userName;
         this.password = password;
         this.title = title;

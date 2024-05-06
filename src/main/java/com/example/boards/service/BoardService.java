@@ -19,6 +19,7 @@ public class BoardService {
     public void createBoard(BoardForm boardForm) {
         boardRepository.save(
                 Board.builder()
+                        .userId(boardForm.getUserId())
                         .userName(boardForm.getUserName())
                         .password(boardForm.getPassword())
                         .title(boardForm.getTitle())
