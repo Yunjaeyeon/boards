@@ -19,14 +19,18 @@ public class Board {
     private String password;
     private String title;
     private String content;
+    private String email;
+    private String phoneNo;
 
     @Builder
-    public Board(String userId, String userName, String password, String title, String content) {
+    public Board(String userId, String userName, String password, String title, String content, String email, String phoneNo) {
         this.userId = userId;
         this.userName = userName;
         this.password = password;
         this.title = title;
         this.content = content;
+        this.email = email;
+        this.phoneNo = phoneNo;
     }
 
 

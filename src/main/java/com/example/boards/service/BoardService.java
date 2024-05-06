@@ -24,6 +24,8 @@ public class BoardService {
                         .password(boardForm.getPassword())
                         .title(boardForm.getTitle())
                         .content(boardForm.getContent())
+                        .email(boardForm.getEmail())
+                        .phoneNo(boardForm.getPhoneNo())
                         .build()
         );
     }

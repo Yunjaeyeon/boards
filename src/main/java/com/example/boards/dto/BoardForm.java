@@ -11,4 +11,6 @@ public class BoardForm {
     private String password;
     private String title;
     private String content;
+    private String email;
+    private String phoneNo;
 }
