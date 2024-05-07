@@ -1,27 +1,38 @@
 package com.example.boards.api;
 
+import com.example.boards.dto.BoardDto;
 import com.example.boards.dto.BoardForm;
+import com.example.boards.dto.BoardUpdateForm;
 import com.example.boards.service.BoardService;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
 
 @Slf4j
 @RestController
 @RequiredArgsConstructor
-//해당 클래스의 final 필드나 @NonNull 어노테이션이 붙은 필드를 가지고 생성자를 생성함. 주로 의존성 주입(Dependency Injection)을 편리하게 하기 위해 사용
 public class BoardApiController {
 
-    private final BoardService boardService; // --> @RequiredArgsConstructor
+    private final BoardService boardService;
+
+    @GetMapping("/boards")
+    public List<BoardDto> searchBoards() {
+        List<BoardDto> boardDtos = boardService.searchBoards();
+        return boardDtos;
+    }
 
     @PostMapping("/board")
-    public void createBoard(@RequestBody @Valid BoardForm boardForm)  {
+    public Long createBoard(@RequestBody @Valid BoardForm boardForm)  {
         System.out.println(">>>>controller !!!");
-        boardService.createBoard(boardForm);
+        return boardService.createBoard(boardForm);
+    }
+
+    @PutMapping("/board")
+    public BoardDto updateBoard(@RequestBody @Valid BoardUpdateForm boardUpdateForm)  {
+        System.out.println(">>>>controller 222!!!");
+        return boardService.updateBoard(boardUpdateForm);
     }
 }
-

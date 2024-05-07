@@ -1,12 +1,13 @@
 package com.example.boards.dto;
 
+import com.example.boards.domain.BaseEntity;
 import jakarta.validation.constraints.*;
 import lombok.Getter;
 import lombok.Setter;
 
 @Getter
 @Setter
-public class BoardUpdateForm {
+public class BoardUpdateForm extends BaseEntity {
     @NotNull
     private Long id;
     @NotBlank
