@@ -64,20 +64,21 @@ public class BoardService {
     }
 
     @Transactional
-    public ResponseEntity<MessageDto> updateBoard(BoardUpdateForm boardUpdateForm) {
+    public MessageDto updateBoard(BoardUpdateForm boardUpdateForm) {
         Board board = boardRepository.findById(boardUpdateForm.getId())
                 .orElseThrow(() -> new EntityNotFoundException(""));
 
-        // 현재 시간
 
-        // 현재 시간
-        LocalDateTime currentTime = LocalDateTime.now();
+        // 생성일
+        LocalDateTime createTime = board.getCreateTime();
+        System.out.println("createTime : " +createTime);
 
-        // 생성일로부터 경과한 날짜 계산
-        long daysSinceCreation = ChronoUnit.DAYS.between(board.getCreateTime(), currentTime);
-
+       // 생성일로부터 경과한 날짜 계산
+        long daysSinceCreation = ChronoUnit.DAYS.between(createTime, LocalDateTime.now().plusDays(1));
+        System.out.println("daysSinceCreation = " + daysSinceCreation);
         // 생성일로부터 9일이 지났을 경우
-        if (daysSinceCreation >= 9 && daysSinceCreation < 10) {
+        if (daysSinceCreation == 9) {
+            System.out.println(" 9일" );
 
             board.updateBoard(
                     boardUpdateForm.getUserId(),
@@ -90,14 +91,15 @@ public class BoardService {
                     boardUpdateForm.getPhoneNo()
             );
 
-            String message = "9일지났음 ! .";
-            return ResponseEntity.ok(new MessageDto(message));
+            String message = "9일지났음 !";
+            return ResponseEntity.ok(new MessageDto(message)).getBody();
         }
 
         // 생성일로부터 10일이 지났을 경우
         if (daysSinceCreation >= 10) {
-            String message = "10일 지나면 안됨 !.";
-            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(new MessageDto(message));
+            System.out.println(" 10일" );
+            String message = "10일 지나면 안됨 !";
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(new MessageDto(message)).getBody();
         }
 
         // 게시글 업데이트
@@ -113,7 +115,7 @@ public class BoardService {
         );
 
         // 업데이트된 게시글 반환
-        return ResponseEntity.ok(new MessageDto("성공"));
+        return new MessageDto("성공");
     }
 
     @Transactional

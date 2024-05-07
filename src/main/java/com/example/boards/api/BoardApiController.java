@@ -18,10 +18,11 @@ public class BoardApiController {
     private final BoardService boardService;
 
     @GetMapping("/boards")
-    public List<BoardDto> searchBoards() {
+    public ResponseEntity<List<BoardDto>> searchBoards() {
         List<BoardDto> boardDtos = boardService.searchBoards();
-        return boardDtos;
+        return ResponseEntity.ok(boardDtos);
     }
+
 
     @GetMapping("/boardsDetail")
     public List<BoardsDto> searchBoardsDetail() {
@@ -36,13 +37,13 @@ public class BoardApiController {
     }
 
     @PutMapping("/board")
-    public ResponseEntity<MessageDto> updateBoard(@RequestBody @Valid BoardUpdateForm boardUpdateForm)  {
+    public MessageDto updateBoard(@RequestBody @Valid BoardUpdateForm boardUpdateForm)  {
         System.out.println(">>>>controller 222!!!");
         return boardService.updateBoard(boardUpdateForm);
     }
 
     @PutMapping("/boardDeleteYn")
-    public ResponseEntity<MessageDto> updateDeleteYn(@RequestBody @Valid BoardUpdateForm boardUpdateForm)  {
+    public MessageDto updateDeleteYn(@RequestBody @Valid BoardUpdateForm boardUpdateForm)  {
         System.out.println(">>>>controller 333!!!");
         return boardService.updateBoard(boardUpdateForm);
     }
