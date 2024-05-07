@@ -1,5 +1,6 @@
 package com.example.boards.dto;
 
+import com.example.boards.domain.DeleteYn;
 import jakarta.validation.constraints.*;
 import lombok.Getter;
 import lombok.Setter;
@@ -25,4 +26,5 @@ public class BoardForm {
     @Email
     private String email;
     private String phoneNo;
+    private DeleteYn deleteYn;
 }

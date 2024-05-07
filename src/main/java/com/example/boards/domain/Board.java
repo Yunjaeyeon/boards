@@ -1,9 +1,6 @@
 package com.example.boards.domain;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
+import jakarta.persistence.*;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -24,9 +21,11 @@ public class Board extends BaseEntity{
     private String content;
     private String email;
     private String phoneNo;
+    @Enumerated(EnumType.STRING)
+    private DeleteYn deleteYn;
 
     @Builder
-    public Board(String userId, String userName, String password, String title, String content, String email, String phoneNo) {
+    public Board(String userId, String userName, String password, String title, String content, String email, String phoneNo, DeleteYn deleteYn) {
         this.userId = userId;
         this.userName = userName;
         this.password = password;
@@ -34,6 +33,7 @@ public class Board extends BaseEntity{
         this.content = content;
         this.email = email;
         this.phoneNo = phoneNo;
+        this.deleteYn = deleteYn;
     }
 
     public void updateBoard(
@@ -43,7 +43,8 @@ public class Board extends BaseEntity{
             String title,
             String content,
             String email,
-            String phoneNo
+            String phoneNo,
+            DeleteYn deleteYn
     ) {
         this.userId = userId;
         this.userName = userName;
@@ -52,6 +53,8 @@ public class Board extends BaseEntity{
         this.content = content;
         this.email = email;
         this.phoneNo = phoneNo;
+        this.deleteYn = deleteYn;
+
     }
 
 

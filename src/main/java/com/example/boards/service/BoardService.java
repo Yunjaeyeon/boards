@@ -1,5 +1,6 @@
 package com.example.boards.service;
 
+import com.example.boards.domain.DeleteYn;
 import com.example.boards.dto.BoardDto;
 import com.example.boards.dto.BoardForm;
 import com.example.boards.domain.Board;
@@ -56,6 +57,7 @@ public class BoardService {
                         .content(boardForm.getContent())
                         .email(boardForm.getEmail())
                         .phoneNo(boardForm.getPhoneNo())
+                        .deleteYn(DeleteYn.N)
                         .build()
         );
         return board.getId();
@@ -73,7 +75,8 @@ public class BoardService {
                 boardUpdateForm.getTitle(),
                 boardUpdateForm.getContent(),
                 boardUpdateForm.getEmail(),
-                boardUpdateForm.getPhoneNo()
+                boardUpdateForm.getPhoneNo(),
+                boardUpdateForm.getDeleteYn()
         );
         return BoardDto.of(board);
     }

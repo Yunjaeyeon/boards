@@ -1,6 +1,7 @@
 package com.example.boards.dto;
 
 import com.example.boards.domain.BaseEntity;
+import com.example.boards.domain.DeleteYn;
 import jakarta.validation.constraints.*;
 import lombok.Getter;
 import lombok.Setter;
@@ -25,5 +26,6 @@ public class BoardUpdateForm extends BaseEntity {
     @Email
     private String email;
     private String phoneNo;
+    private DeleteYn deleteYn;
 
 }

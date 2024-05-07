@@ -1,6 +1,7 @@
 package com.example.boards.dto;
 
 import com.example.boards.domain.Board;
+import com.example.boards.domain.DeleteYn;
 import jakarta.validation.constraints.*;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -27,6 +28,7 @@ public class BoardDto {
     @Email
     private String email;
     private String phoneNo;
+    private DeleteYn deleteYn;
 
 
     // 생성자
@@ -49,7 +51,8 @@ public class BoardDto {
                 board.getTitle(),
                 board.getContent(),
                 board.getEmail(),
-                board.getPhoneNo()
+                board.getPhoneNo(),
+                board.getDeleteYn()
         );
     }
 }
