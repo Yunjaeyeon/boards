@@ -57,7 +57,7 @@ public class Board extends BaseEntity{
 
     }
 
-
-
-
+    public void setDeleteYn(DeleteYn deleteYn) {
+        this.deleteYn = deleteYn;
+    }
 }

@@ -40,9 +40,15 @@ public class BoardApiController {
         return boardService.updateBoard(boardUpdateForm);
     }
 
+    @PutMapping("/boardDeleteYn")
+    public BoardDto updateDeleteYn(@RequestBody @Valid BoardUpdateForm boardUpdateForm)  {
+        System.out.println(">>>>controller 333!!!");
+        return boardService.updateDeleteYn(boardUpdateForm);
+    }
+
     @DeleteMapping("/board")
     public void removeBoard(@RequestBody BoardRemoveForm boardRemoveForm)  {
-        System.out.println(">>>>controller 333!!!");
+        System.out.println(">>>>controller 444!!!");
         boardService.removeBoard(boardRemoveForm);
     }
 }
