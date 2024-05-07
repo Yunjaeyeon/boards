@@ -29,7 +29,7 @@ public class BoardService {
     private final BoardRepository boardRepository;
 
     public List<BoardDto> searchBoards() {
-        List<Board> boards = boardRepository.findAll();
+        List<Board> boards = boardRepository.findByDeleteYnNot(DeleteYn.Y);
         return boards.stream()
                 .map(BoardDto::of)
                 .collect(Collectors.toList());
