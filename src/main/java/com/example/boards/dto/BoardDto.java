@@ -34,7 +34,7 @@ public class BoardDto {
     private LocalDateTime createTime;
 
 
-    // 생성자
+// 생성자
 //    public BoardDto(String userId, String userName, String password, String title, String content, String email, String phoneNo) {
 //        this.userId = userId;
 //        this.userName = userName;

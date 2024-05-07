@@ -115,7 +115,7 @@ public class BoardService {
         );
 
         // 업데이트된 게시글 반환
-        return new MessageDto("성공");
+        return new MessageDto("성공 !");
     }
 
     @Transactional
@@ -124,6 +124,7 @@ public class BoardService {
                 .orElseThrow(() -> new EntityNotFoundException(""));
 
         board.setDeleteYn(DeleteYn.Y);
+        System.out.println("board !!!!= " + board.getDeleteYn());
         return BoardDto.of(board);
     }
 
