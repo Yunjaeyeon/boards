@@ -5,6 +5,7 @@ import com.example.boards.service.BoardService;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -35,13 +36,13 @@ public class BoardApiController {
     }
 
     @PutMapping("/board")
-    public BoardDto updateBoard(@RequestBody @Valid BoardUpdateForm boardUpdateForm)  {
+    public ResponseEntity<MessageDto> updateBoard(@RequestBody @Valid BoardUpdateForm boardUpdateForm)  {
         System.out.println(">>>>controller 222!!!");
         return boardService.updateBoard(boardUpdateForm);
     }
 
     @PutMapping("/boardDeleteYn")
-    public BoardDto updateDeleteYn(@RequestBody @Valid BoardUpdateForm boardUpdateForm)  {
+    public ResponseEntity<MessageDto> updateDeleteYn(@RequestBody @Valid BoardUpdateForm boardUpdateForm)  {
         System.out.println(">>>>controller 333!!!");
         return boardService.updateBoard(boardUpdateForm);
     }

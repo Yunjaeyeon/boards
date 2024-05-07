@@ -6,6 +6,8 @@ import com.example.boards.domain.Board;
 import jakarta.persistence.EntityNotFoundException;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import com.example.boards.repository.BoardRepository;
@@ -62,9 +64,11 @@ public class BoardService {
     }
 
     @Transactional
-    public BoardDto updateBoard(BoardUpdateForm boardUpdateForm) {
+    public ResponseEntity<MessageDto> updateBoard(BoardUpdateForm boardUpdateForm) {
         Board board = boardRepository.findById(boardUpdateForm.getId())
                 .orElseThrow(() -> new EntityNotFoundException(""));
+
+        // 현재 시간
 
         // 현재 시간
         LocalDateTime currentTime = LocalDateTime.now();
@@ -72,11 +76,31 @@ public class BoardService {
         // 생성일로부터 경과한 날짜 계산
         long daysSinceCreation = ChronoUnit.DAYS.between(board.getCreateTime(), currentTime);
 
-        // 생성일로부터 10일이 지났을 경우
-        if (daysSinceCreation >= 10) {
-            throw new IllegalStateException("10일 지나서 못함 !!! ");
+        // 생성일로부터 9일이 지났을 경우
+        if (daysSinceCreation >= 9 && daysSinceCreation < 10) {
+
+            board.updateBoard(
+                    boardUpdateForm.getUserId(),
+                    boardUpdateForm.getUserName(),
+                    boardUpdateForm.getPassword(),
+                    boardUpdateForm.getTitle(),
+                    boardUpdateForm.getContent(),
+                    boardUpdateForm.getDeleteYn(),
+                    boardUpdateForm.getEmail(),
+                    boardUpdateForm.getPhoneNo()
+            );
+
+            String message = "9일지났음 ! .";
+            return ResponseEntity.ok(new MessageDto(message));
         }
 
+        // 생성일로부터 10일이 지났을 경우
+        if (daysSinceCreation >= 10) {
+            String message = "10일 지나면 안됨 !.";
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(new MessageDto(message));
+        }
+
+        // 게시글 업데이트
         board.updateBoard(
                 boardUpdateForm.getUserId(),
                 boardUpdateForm.getUserName(),
@@ -87,7 +111,9 @@ public class BoardService {
                 boardUpdateForm.getEmail(),
                 boardUpdateForm.getPhoneNo()
         );
-        return BoardDto.of(board);
+
+        // 업데이트된 게시글 반환
+        return ResponseEntity.ok(new MessageDto("성공"));
     }
 
     @Transactional
