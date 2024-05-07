@@ -1,4 +1,5 @@
 package com.example.boards.domain;
+
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
@@ -32,6 +33,26 @@ public class Board {
         this.email = email;
         this.phoneNo = phoneNo;
     }
+
+    public void updateBoard(
+            String userId,
+            String userName,
+            String password,
+            String title,
+            String content,
+            String email,
+            String phoneNo
+    ) {
+        this.userId = userId;
+        this.userName = userName;
+        this.password = password;
+        this.title = title;
+        this.content = content;
+        this.email = email;
+        this.phoneNo = phoneNo;
+    }
+
+
 
 
 }
