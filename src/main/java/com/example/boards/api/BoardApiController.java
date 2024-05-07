@@ -43,7 +43,7 @@ public class BoardApiController {
     @PutMapping("/boardDeleteYn")
     public BoardDto updateDeleteYn(@RequestBody @Valid BoardUpdateForm boardUpdateForm)  {
         System.out.println(">>>>controller 333!!!");
-        return boardService.updateDeleteYn(boardUpdateForm);
+        return boardService.updateBoard(boardUpdateForm);
     }
 
     @DeleteMapping("/board")

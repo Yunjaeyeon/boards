@@ -10,6 +10,8 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import com.example.boards.repository.BoardRepository;
 
+import java.time.LocalDateTime;
+import java.time.temporal.ChronoUnit;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -63,6 +65,17 @@ public class BoardService {
     public BoardDto updateBoard(BoardUpdateForm boardUpdateForm) {
         Board board = boardRepository.findById(boardUpdateForm.getId())
                 .orElseThrow(() -> new EntityNotFoundException(""));
+
+        // 현재 시간
+        LocalDateTime currentTime = LocalDateTime.now();
+
+        // 생성일로부터 경과한 날짜 계산
+        long daysSinceCreation = ChronoUnit.DAYS.between(board.getCreateTime(), currentTime);
+
+        // 생성일로부터 10일이 지났을 경우
+        if (daysSinceCreation >= 10) {
+            throw new IllegalStateException("10일 지나서 못함 !!! ");
+        }
 
         board.updateBoard(
                 boardUpdateForm.getUserId(),
