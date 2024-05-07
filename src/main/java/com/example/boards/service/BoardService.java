@@ -1,15 +1,11 @@
 package com.example.boards.service;
 
 import com.example.boards.domain.DeleteYn;
-import com.example.boards.dto.BoardDto;
-import com.example.boards.dto.BoardForm;
+import com.example.boards.dto.*;
 import com.example.boards.domain.Board;
-import com.example.boards.dto.BoardUpdateForm;
-import com.example.boards.dto.BoardsDto;
 import jakarta.persistence.EntityNotFoundException;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import com.example.boards.repository.BoardRepository;
@@ -80,5 +76,15 @@ public class BoardService {
         );
         return BoardDto.of(board);
     }
+
+    @Transactional
+    public void removeBoard(BoardRemoveForm boardRemoveForm) {
+        Board board = boardRepository.findById(boardRemoveForm.getId())
+                .orElseThrow(() -> new EntityNotFoundException(""));
+
+        boardRepository.delete(board);
+
+    }
+
 
 }

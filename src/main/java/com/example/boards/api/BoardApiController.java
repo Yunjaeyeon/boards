@@ -1,9 +1,6 @@
 package com.example.boards.api;
 
-import com.example.boards.dto.BoardDto;
-import com.example.boards.dto.BoardForm;
-import com.example.boards.dto.BoardUpdateForm;
-import com.example.boards.dto.BoardsDto;
+import com.example.boards.dto.*;
 import com.example.boards.service.BoardService;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
@@ -41,5 +38,11 @@ public class BoardApiController {
     public BoardDto updateBoard(@RequestBody @Valid BoardUpdateForm boardUpdateForm)  {
         System.out.println(">>>>controller 222!!!");
         return boardService.updateBoard(boardUpdateForm);
+    }
+
+    @DeleteMapping("/board")
+    public void removeBoard(@RequestBody BoardRemoveForm boardRemoveForm)  {
+        System.out.println(">>>>controller 333!!!");
+        boardService.removeBoard(boardRemoveForm);
     }
 }
