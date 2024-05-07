@@ -46,8 +46,7 @@ public class Board extends BaseEntity{
             String content,
             DeleteYn deleteYn,
             String email,
-            String phoneNo,
-            LocalDateTime createTime
+            String phoneNo
     ) {
         this.userId = userId;
         this.userName = userName;
@@ -57,7 +56,6 @@ public class Board extends BaseEntity{
         this.deleteYn = deleteYn;
         this.email = email;
         this.phoneNo = phoneNo;
-        this.createTime = createTime;
 
     }
 
