@@ -1,13 +1,17 @@
 package com.example.boards.dto;
 
+import com.example.boards.domain.BaseEntity;
 import com.example.boards.domain.DeleteYn;
+import com.fasterxml.jackson.databind.ser.Serializers;
+import jakarta.persistence.EnumType;
+import jakarta.persistence.Enumerated;
 import jakarta.validation.constraints.*;
 import lombok.Getter;
 import lombok.Setter;
 
 @Getter
 @Setter
-public class BoardForm {
+public class BoardForm extends BaseEntity {
     //@NotNull - null x
     //@NotEmpty - null,("") x
     //@NotBlank - (""), (" "), null x
@@ -26,5 +30,6 @@ public class BoardForm {
     @Email
     private String email;
     private String phoneNo;
+    @Enumerated(EnumType.STRING)
     private DeleteYn deleteYn;
 }

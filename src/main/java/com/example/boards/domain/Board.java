@@ -4,6 +4,7 @@ import jakarta.persistence.*;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
+import org.springframework.cglib.core.Local;
 
 import java.time.LocalDateTime;
 
@@ -23,6 +24,7 @@ public class Board extends BaseEntity{
     private String phoneNo;
     @Enumerated(EnumType.STRING)
     private DeleteYn deleteYn;
+
 
     @Builder
     public Board(String userId, String userName, String password, String title, String content, String email, String phoneNo, DeleteYn deleteYn) {
@@ -44,7 +46,8 @@ public class Board extends BaseEntity{
             String content,
             DeleteYn deleteYn,
             String email,
-            String phoneNo
+            String phoneNo,
+            LocalDateTime createTime
     ) {
         this.userId = userId;
         this.userName = userName;
@@ -54,6 +57,7 @@ public class Board extends BaseEntity{
         this.deleteYn = deleteYn;
         this.email = email;
         this.phoneNo = phoneNo;
+        this.createTime = createTime;
 
     }
 

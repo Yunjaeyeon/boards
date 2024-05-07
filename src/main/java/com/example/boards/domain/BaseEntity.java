@@ -18,7 +18,7 @@ import java.time.LocalDateTime;
 @EntityListeners(AuditingEntityListener.class) //Auditing(자동 값 매핑 추가)
 public abstract class BaseEntity {
     @CreatedDate
-    private LocalDateTime createTime;
+    LocalDateTime createTime;
 //    @CreatedBy
 //    @Column(updatable = false)
 //    private String createdBy;

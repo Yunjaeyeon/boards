@@ -73,7 +73,8 @@ public class BoardService {
                 boardUpdateForm.getContent(),
                 boardUpdateForm.getDeleteYn(),
                 boardUpdateForm.getEmail(),
-                boardUpdateForm.getPhoneNo()
+                boardUpdateForm.getPhoneNo(),
+                boardUpdateForm.getCreateTime()
         );
         return BoardDto.of(board);
     }
