@@ -28,6 +28,7 @@ public class BoardsDto {
     private String email;
     private String phoneNo;
     private LocalDateTime createTime;
+    private LocalDateTime updateAvailableDate; // 수정 가능한 날짜
     // 생성자
 //    public BoardDto(String userId, String userName, String password, String title, String content, String email, String phoneNo) {
 //        this.userId = userId;
@@ -41,7 +42,7 @@ public class BoardsDto {
 
     // of 메서드
     public static BoardsDto of(Board board) {
-        return new BoardsDto(
+        BoardsDto boardsDto = new BoardsDto(
                 board.getUserId(),
                 board.getUserName(),
                 board.getPassword(),
@@ -49,7 +50,18 @@ public class BoardsDto {
                 board.getContent(),
                 board.getEmail(),
                 board.getPhoneNo(),
-                board.getCreateTime()
+                board.getCreateTime(),
+                null // 수정 가능한 날짜는 여기서 설정하지 않음
         );
+        boardsDto.calculateUpdateAvailableDate(); // 수정 가능한 날짜 계산
+        return boardsDto;
+    }
+    // 수정 가능한 날짜 계산
+    public void calculateUpdateAvailableDate() {
+        if (this.createTime != null) { // createTime이 null이 아닌 경우에만 처리
+            // 생성날짜에서 10일을 더한 후에 수정 가능한 날짜로 설정
+            System.out.println(">>>>>!!!!");
+            this.updateAvailableDate = LocalDateTime.now().plusDays(10);
+        }
     }
 }
