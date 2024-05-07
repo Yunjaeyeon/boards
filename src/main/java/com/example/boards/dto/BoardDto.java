@@ -6,7 +6,9 @@ import jakarta.validation.constraints.*;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.Setter;
+import org.springframework.cglib.core.Local;
 
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 
 @Getter
@@ -29,6 +31,7 @@ public class BoardDto {
     private String email;
     private String phoneNo;
     private DeleteYn deleteYn;
+    private LocalDateTime createTime;
 
 
     // 생성자
@@ -52,7 +55,8 @@ public class BoardDto {
                 board.getContent(),
                 board.getEmail(),
                 board.getPhoneNo(),
-                board.getDeleteYn()
+                board.getDeleteYn(),
+                board.getCreateTime()
         );
     }
 }

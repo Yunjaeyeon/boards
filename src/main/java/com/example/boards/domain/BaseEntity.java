@@ -1,9 +1,6 @@
 package com.example.boards.domain;
 
-import jakarta.persistence.CollectionTable;
-import jakarta.persistence.Column;
-import jakarta.persistence.EntityListeners;
-import jakarta.persistence.MappedSuperclass;
+import jakarta.persistence.*;
 import lombok.Getter;
 import org.springframework.data.annotation.CreatedBy;
 import org.springframework.data.annotation.CreatedDate;
@@ -19,6 +16,10 @@ import java.time.LocalDateTime;
 public abstract class BaseEntity {
     @CreatedDate
     LocalDateTime createTime;
+    @PrePersist
+    public void prePersist() {
+        this.createTime = LocalDateTime.now();
+    }
 //    @CreatedBy
 //    @Column(updatable = false)
 //    private String createdBy;
@@ -26,6 +27,10 @@ public abstract class BaseEntity {
     @LastModifiedDate
     private LocalDateTime localModifiedDate;
 
+    @PreUpdate
+    public void preUpdate() {
+        this.localModifiedDate = LocalDateTime.now();
+    }
 //    @LastModifiedBy
 //    private String lastModifiedBy;
 }

@@ -64,7 +64,6 @@ public class BoardService {
         Board board = boardRepository.findById(boardUpdateForm.getId())
                 .orElseThrow(() -> new EntityNotFoundException(""));
 
-        System.out.println("deleteYn : " + boardUpdateForm.getDeleteYn());
         board.updateBoard(
                 boardUpdateForm.getUserId(),
                 boardUpdateForm.getUserName(),
