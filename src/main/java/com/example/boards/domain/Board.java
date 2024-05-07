@@ -42,22 +42,23 @@ public class Board extends BaseEntity{
             String password,
             String title,
             String content,
+            DeleteYn deleteYn,
             String email,
-            String phoneNo,
-            DeleteYn deleteYn
+            String phoneNo
     ) {
         this.userId = userId;
         this.userName = userName;
         this.password = password;
         this.title = title;
         this.content = content;
+        this.deleteYn = deleteYn;
         this.email = email;
         this.phoneNo = phoneNo;
-        this.deleteYn = deleteYn;
 
     }
 
     public void setDeleteYn(DeleteYn deleteYn) {
         this.deleteYn = deleteYn;
     }
+
 }
