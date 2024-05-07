@@ -3,6 +3,7 @@ package com.example.boards.api;
 import com.example.boards.dto.BoardDto;
 import com.example.boards.dto.BoardForm;
 import com.example.boards.dto.BoardUpdateForm;
+import com.example.boards.dto.BoardsDto;
 import com.example.boards.service.BoardService;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
@@ -22,6 +23,12 @@ public class BoardApiController {
     public List<BoardDto> searchBoards() {
         List<BoardDto> boardDtos = boardService.searchBoards();
         return boardDtos;
+    }
+
+    @GetMapping("/boardsDetail")
+    public List<BoardsDto> searchBoardsDetail() {
+        List<BoardsDto> boardsDtos = boardService.searchBoardsDetail();
+        return boardsDtos;
     }
 
     @PostMapping("/board")

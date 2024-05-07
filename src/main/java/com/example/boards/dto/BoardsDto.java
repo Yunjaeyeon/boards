@@ -11,7 +11,7 @@ import java.time.LocalDateTime;
 @Getter
 @Setter
 @AllArgsConstructor
-public class BoardDto {
+public class BoardsDto {
     @NotBlank
     private String userId;
     @NotBlank
@@ -27,8 +27,7 @@ public class BoardDto {
     @Email
     private String email;
     private String phoneNo;
-
-
+    private LocalDateTime createTime;
     // 생성자
 //    public BoardDto(String userId, String userName, String password, String title, String content, String email, String phoneNo) {
 //        this.userId = userId;
@@ -41,15 +40,16 @@ public class BoardDto {
 //    }
 
     // of 메서드
-    public static BoardDto of(Board board) {
-        return new BoardDto(
+    public static BoardsDto of(Board board) {
+        return new BoardsDto(
                 board.getUserId(),
                 board.getUserName(),
                 board.getPassword(),
                 board.getTitle(),
                 board.getContent(),
                 board.getEmail(),
-                board.getPhoneNo()
+                board.getPhoneNo(),
+                board.getCreateTime()
         );
     }
 }

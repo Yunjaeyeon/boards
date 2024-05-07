@@ -4,6 +4,7 @@ import com.example.boards.dto.BoardDto;
 import com.example.boards.dto.BoardForm;
 import com.example.boards.domain.Board;
 import com.example.boards.dto.BoardUpdateForm;
+import com.example.boards.dto.BoardsDto;
 import jakarta.persistence.EntityNotFoundException;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -34,6 +35,13 @@ public class BoardService {
         List<Board> boards = boardRepository.findAll();
         return boards.stream()
                 .map(BoardDto::of)
+                .collect(Collectors.toList());
+    }
+
+    public List<BoardsDto> searchBoardsDetail() {
+        List<Board> boards = boardRepository.findAll();
+        return boards.stream()
+                .map(BoardsDto::of)
                 .collect(Collectors.toList());
     }
 
