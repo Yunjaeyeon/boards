@@ -38,7 +38,7 @@ public class BoardService {
     public Page<BoardDto> searchPagedBoards(Pageable pageable) {
         Page<Board> boardPage = boardRepository.findByDeleteYnNot(DeleteYn.Y,pageable);
         List<BoardDto> boardDtos = new ArrayList<>();
-        for (Board board : boardPage.getContent()) {
+        for (Board board : boardPage.getContent()) { // boardPage.getContent()은 Page 객체에서 현재 페이지에 포함된 항목들을 가져오는 메서드
             boardDtos.add(BoardDto.of(board));
         }
         return new PageImpl<>(boardDtos, pageable, boardPage.getTotalElements());
