@@ -7,14 +7,16 @@ import jakarta.persistence.EntityNotFoundException;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.coyote.BadRequestException;
-import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageImpl;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import com.example.boards.repository.BoardRepository;
 
 import java.time.LocalDateTime;
 import java.time.temporal.ChronoUnit;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -23,13 +25,6 @@ import java.util.stream.Collectors;
 @Transactional(readOnly = true)
 @RequiredArgsConstructor
 public class BoardService {
-
-    /*
-    일반적으로 "create" 작업은 데이터베이스에 새로운 엔티티를 추가하고, "update" 작업은 기존의 엔티티를 수정하는 것입니다.
-    "create" 작업은 단순히 새로운 엔티티를 추가하는 것이므로, 일반적으로 트랜잭션을 사용하지 않습니다. 이는 간단한 데이터베이스 작업이기 때문에, 트랜잭션을 사용하지 않아도 데이터베이스에 안전하게 저장될 수 있기 때문입니다.
-    반면에 "update" 작업은 기존의 엔티티를 수정하는 작업이기 때문에, 보다 안전한 데이터 관리를 위해 트랜잭션을 사용하는 것이 좋습니다. 트랜잭션을 사용하면 데이터베이스 작업이 원자적으로 실행되므로, 업데이트 작업 중에 오류가 발생하더라도 데이터베이스가 일관된 상태를 유지할 수 있습니다.
-    따라서 "create" 작업에는 트랜잭션을 사용하지 않고, "update" 작업에는 트랜잭션을 사용하는 것이 일반적인 관례입니다.
-     */
 
     private final BoardRepository boardRepository;
 
@@ -40,6 +35,16 @@ public class BoardService {
                 .collect(Collectors.toList());
     }
 
+    public Page<BoardDto> searchPagedBoards(Pageable pageable) {
+        Page<Board> boardPage = boardRepository.findByDeleteYnNot(DeleteYn.Y,pageable);
+        List<BoardDto> boardDtos = new ArrayList<>();
+        for (Board board : boardPage.getContent()) {
+            boardDtos.add(BoardDto.of(board));
+        }
+        return new PageImpl<>(boardDtos, pageable, boardPage.getTotalElements());
+    }
+
+
     public List<BoardsDto> searchBoardsDetail() {
         List<Board> boards = boardRepository.findAll();
         return boards.stream()
@@ -48,7 +53,6 @@ public class BoardService {
     }
 
     public Long createBoard(BoardForm boardForm) {
-
         Board board = boardRepository.save(
                 Board.builder()
                         .userId(boardForm.getUserId())
@@ -69,18 +73,14 @@ public class BoardService {
         Board board = boardRepository.findById(boardUpdateForm.getId())
                 .orElseThrow(() -> new EntityNotFoundException(""));
 
-
-        // 생성일
         LocalDateTime createTime = board.getCreateTime();
-        System.out.println("createTime : " +createTime);
+        log.debug("createTime : {}", createTime);
 
-       // 생성일로부터 경과한 날짜 계산
         long daysSinceCreation = ChronoUnit.DAYS.between(createTime, LocalDateTime.now().plusDays(1));
-        System.out.println("daysSinceCreation = " + daysSinceCreation);
-        // 생성일로부터 9일이 지났을 경우
-        if (daysSinceCreation == 9) {
-            System.out.println(" 9일" );
+        log.debug("daysSinceCreation = {}", daysSinceCreation);
 
+        if (daysSinceCreation == 9) {
+            log.debug(" 9일");
             board.updateBoard(
                     boardUpdateForm.getUserId(),
                     boardUpdateForm.getUserName(),
@@ -91,19 +91,16 @@ public class BoardService {
                     boardUpdateForm.getEmail(),
                     boardUpdateForm.getPhoneNo()
             );
-
             String message = "9일지났음 !";
             return new MessageDto(message);
         }
 
-        // 생성일로부터 10일이 지났을 경우
         if (daysSinceCreation >= 10) {
-            System.out.println(" 10일" );
+            log.debug(" 10일");
             String message = "10일 지나면 안됨 !";
             throw new BadRequestException(message);
         }
 
-        // 게시글 업데이트
         board.updateBoard(
                 boardUpdateForm.getUserId(),
                 boardUpdateForm.getUserName(),
@@ -115,7 +112,6 @@ public class BoardService {
                 boardUpdateForm.getPhoneNo()
         );
 
-        // 업데이트된 게시글 반환
         return new MessageDto("성공 !");
     }
 
@@ -125,7 +121,7 @@ public class BoardService {
                 .orElseThrow(() -> new EntityNotFoundException(""));
 
         board.setDeleteYn(DeleteYn.Y);
-        System.out.println("board !!!!= " + board.getDeleteYn());
+        log.debug("board.deleteYn = {}", board.getDeleteYn());
         return BoardDto.of(board);
     }
 
@@ -133,10 +129,6 @@ public class BoardService {
     public void removeBoard(BoardRemoveForm boardRemoveForm) {
         Board board = boardRepository.findById(boardRemoveForm.getId())
                 .orElseThrow(() -> new EntityNotFoundException(""));
-
         boardRepository.delete(board);
-
     }
-
-
 }
