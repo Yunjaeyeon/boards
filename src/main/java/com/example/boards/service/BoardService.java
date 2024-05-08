@@ -74,13 +74,10 @@ public class BoardService {
                 .orElseThrow(() -> new EntityNotFoundException(""));
 
         LocalDateTime createTime = board.getCreateTime();
-        log.debug("createTime : {}", createTime);
 
         long daysSinceCreation = ChronoUnit.DAYS.between(createTime, LocalDateTime.now().plusDays(1));
-        log.debug("daysSinceCreation = {}", daysSinceCreation);
 
         if (daysSinceCreation == 9) {
-            log.debug(" 9일");
             board.updateBoard(
                     boardUpdateForm.getUserId(),
                     boardUpdateForm.getUserName(),
@@ -96,7 +93,6 @@ public class BoardService {
         }
 
         if (daysSinceCreation >= 10) {
-            log.debug(" 10일");
             String message = "10일 지나면 안됨 !";
             throw new BadRequestException(message);
         }
