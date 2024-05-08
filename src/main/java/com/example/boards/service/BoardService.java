@@ -117,7 +117,6 @@ public class BoardService {
                 .orElseThrow(() -> new EntityNotFoundException(""));
 
         board.setDeleteYn(DeleteYn.Y);
-        log.debug("board.deleteYn = {}", board.getDeleteYn());
         return BoardDto.of(board);
     }
 
