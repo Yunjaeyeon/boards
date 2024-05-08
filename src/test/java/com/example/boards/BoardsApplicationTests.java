@@ -158,7 +158,6 @@ class BoardsApplicationTests {
         boardRepository.deleteById(boardId);
 
         // Then
-
         assertFalse(boardRepository.existsById(boardId));
     }
 
