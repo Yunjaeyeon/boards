@@ -5,7 +5,7 @@ import com.example.boards.service.BoardService;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.http.ResponseEntity;
+import org.apache.coyote.BadRequestException;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -18,9 +18,9 @@ public class BoardApiController {
     private final BoardService boardService;
 
     @GetMapping("/boards")
-    public ResponseEntity<List<BoardDto>> searchBoards() {
+    public List<BoardDto> searchBoards() {
         List<BoardDto> boardDtos = boardService.searchBoards();
-        return ResponseEntity.ok(boardDtos);
+        return boardDtos;
     }
 
 
@@ -37,7 +37,7 @@ public class BoardApiController {
     }
 
     @PutMapping("/board")
-    public MessageDto updateBoard(@RequestBody @Valid BoardUpdateForm boardUpdateForm)  {
+    public MessageDto updateBoard(@RequestBody @Valid BoardUpdateForm boardUpdateForm) throws BadRequestException {
         System.out.println(">>>>controller 222!!!");
         return boardService.updateBoard(boardUpdateForm);
     }

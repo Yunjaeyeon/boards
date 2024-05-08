@@ -6,6 +6,7 @@ import com.example.boards.domain.Board;
 import jakarta.persistence.EntityNotFoundException;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.apache.coyote.BadRequestException;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
@@ -64,7 +65,7 @@ public class BoardService {
     }
 
     @Transactional
-    public MessageDto updateBoard(BoardUpdateForm boardUpdateForm) {
+    public MessageDto updateBoard(BoardUpdateForm boardUpdateForm) throws BadRequestException {
         Board board = boardRepository.findById(boardUpdateForm.getId())
                 .orElseThrow(() -> new EntityNotFoundException(""));
 
@@ -92,14 +93,14 @@ public class BoardService {
             );
 
             String message = "9일지났음 !";
-            return ResponseEntity.ok(new MessageDto(message)).getBody();
+            return new MessageDto(message);
         }
 
         // 생성일로부터 10일이 지났을 경우
         if (daysSinceCreation >= 10) {
             System.out.println(" 10일" );
             String message = "10일 지나면 안됨 !";
-            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(new MessageDto(message)).getBody();
+            throw new BadRequestException(message);
         }
 
         // 게시글 업데이트
