@@ -28,21 +28,21 @@ public class BoardService {
 
     private final BoardRepository boardRepository;
 
-    public List<BoardDto> searchBoards() {
-        List<Board> boards = boardRepository.findByDeleteYnNot(DeleteYn.Y);
-        return boards.stream()
-                .map(BoardDto::of)
-                .collect(Collectors.toList());
-    }
+//    public List<BoardDto> searchBoards() {
+//        List<Board> boards = boardRepository.findByDeleteYnNot(DeleteYn.Y);
+//        return boards.stream()
+//                .map(BoardDto::of)
+//                .collect(Collectors.toList());
+//    }
 
-    public Page<BoardDto> searchPagedBoards(Pageable pageable) {
-        Page<Board> boardPage = boardRepository.findByDeleteYnNot(DeleteYn.Y,pageable);
-        List<BoardDto> boardDtos = new ArrayList<>();
-        for (Board board : boardPage.getContent()) { // boardPage.getContent()은 Page 객체에서 현재 페이지에 포함된 항목들을 가져오는 메서드
-            boardDtos.add(BoardDto.of(board));
-        }
-        return new PageImpl<>(boardDtos, pageable, boardPage.getTotalElements());
-    }
+//    public Page<BoardDto> searchPagedBoards(Pageable pageable) {
+//        Page<Board> boardPage = boardRepository.findByDeleteYnNot(DeleteYn.Y,pageable);
+//        List<BoardDto> boardDtos = new ArrayList<>();
+//        for (Board board : boardPage.getContent()) { // boardPage.getContent()은 Page 객체에서 현재 페이지에 포함된 항목들을 가져오는 메서드
+//            boardDtos.add(BoardDto.of(board));
+//        }
+//        return new PageImpl<>(boardDtos, pageable, boardPage.getTotalElements());
+//    }
 
 
     public List<BoardsDto> searchBoardsDetail() {
@@ -62,7 +62,7 @@ public class BoardService {
                         .content(boardForm.getContent())
                         .email(boardForm.getEmail())
                         .phoneNo(boardForm.getPhoneNo())
-                        .deleteYn(DeleteYn.N)
+                       // .deleteYn(DeleteYn.N)
                         .build()
         );
         return board.getId();
@@ -84,7 +84,7 @@ public class BoardService {
                     boardUpdateForm.getPassword(),
                     boardUpdateForm.getTitle(),
                     boardUpdateForm.getContent(),
-                    boardUpdateForm.getDeleteYn(),
+                    //boardUpdateForm.getDeleteYn(),
                     boardUpdateForm.getEmail(),
                     boardUpdateForm.getPhoneNo()
             );
@@ -103,7 +103,7 @@ public class BoardService {
                 boardUpdateForm.getPassword(),
                 boardUpdateForm.getTitle(),
                 boardUpdateForm.getContent(),
-                boardUpdateForm.getDeleteYn(),
+                //boardUpdateForm.getDeleteYn(),
                 boardUpdateForm.getEmail(),
                 boardUpdateForm.getPhoneNo()
         );
@@ -116,7 +116,7 @@ public class BoardService {
         Board board = boardRepository.findById(boardUpdateForm.getId())
                 .orElseThrow(() -> new EntityNotFoundException(""));
 
-        board.setDeleteYn(DeleteYn.Y);
+       board.setIsDeleted();
         return BoardDto.of(board);
     }
 
