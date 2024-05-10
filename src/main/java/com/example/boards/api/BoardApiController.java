@@ -49,7 +49,7 @@ public class BoardApiController {
 
     // 게시글 업데이트
     @PutMapping("/board")
-    public MessageDto updateBoard(@RequestBody @Valid BoardUpdateForm boardUpdateForm) throws BadRequestException {
+    public MessageDto updateBoard(@RequestBody @Valid BoardUpdateForm boardUpdateForm){
         return boardService.updateBoard(boardUpdateForm);
     }
 

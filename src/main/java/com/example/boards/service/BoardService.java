@@ -108,7 +108,6 @@ public class BoardService {
 
             return new MessageDto("성공 !");
         } catch (BadRequestException e) {
-            // BadRequestException이 발생했을 때의 처리를 여기에 작성합니다.
             return new MessageDto(e.getMessage());
         }
     }
