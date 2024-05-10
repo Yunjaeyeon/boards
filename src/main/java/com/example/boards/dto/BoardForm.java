@@ -30,6 +30,7 @@ public class BoardForm extends BaseEntity {
     @Email
     private String email;
     private String phoneNo;
-    @Enumerated(EnumType.STRING)
-    private DeleteYn deleteYn;
+    private boolean isDeleted;
+//    @Enumerated(EnumType.STRING)
+//    private DeleteYn deleteYn;
 }

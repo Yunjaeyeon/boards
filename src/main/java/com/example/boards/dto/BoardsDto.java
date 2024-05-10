@@ -30,7 +30,7 @@ public class BoardsDto {
     private String phoneNo;
     private LocalDateTime createTime;
     private LocalDateTime updateAvailableDate; // 수정 가능한 날짜
-    private DeleteYn deleteYn;
+   // private DeleteYn deleteYn;
     // 생성자
 //    public BoardDto(String userId, String userName, String password, String title, String content, String email, String phoneNo) {
 //        this.userId = userId;
@@ -53,8 +53,8 @@ public class BoardsDto {
                 board.getEmail(),
                 board.getPhoneNo(),
                 board.getCreateTime(),
-                null,// 수정 가능한 날짜는 여기서 설정하지 않음,
-                board.getDeleteYn()
+                null// 수정 가능한 날짜는 여기서 설정하지 않음,
+               // board.getDeleteYn()
         );
         boardsDto.calculateUpdateAvailableDate(); // 수정 가능한 날짜 계산
         return boardsDto;

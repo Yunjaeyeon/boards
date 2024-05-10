@@ -30,7 +30,7 @@ public class BoardDto {
     @Email
     private String email;
     private String phoneNo;
-    private DeleteYn deleteYn;
+    //private DeleteYn deleteYn;
     private LocalDateTime createTime;
 
 
@@ -55,7 +55,7 @@ public class BoardDto {
                 board.getContent(),
                 board.getEmail(),
                 board.getPhoneNo(),
-                board.getDeleteYn(),
+               // board.getDeleteYn(),
                 board.getCreateTime()
         );
     }

@@ -33,4 +33,7 @@ public abstract class BaseEntity {
     }
 //    @LastModifiedBy
 //    private String lastModifiedBy;
+
+    boolean isDeleted;
+
 }

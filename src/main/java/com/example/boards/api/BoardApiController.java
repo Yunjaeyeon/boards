@@ -21,25 +21,25 @@ public class BoardApiController {
     private final BoardService boardService;
 
     // 모든 게시글 조회
-    @GetMapping("/boards")
-    public List<BoardDto> searchBoards() {
-        return boardService.searchBoards();
-    }
+//    @GetMapping("/boards")
+//    public List<BoardDto> searchBoards() {
+//        return boardService.searchBoards();
+//    }
 
     // 페이징 처리된 모든 게시글 조회
-    @GetMapping("/pagedBoards")
-    public Page<BoardDto> searchPagedBoards(
-            @RequestParam(defaultValue = "0") int page,
-            @RequestParam(defaultValue = "2") int size) {
-        Pageable pageable = PageRequest.of(page, size);
-        return boardService.searchPagedBoards(pageable);
-    }
+//    @GetMapping("/pagedBoards")
+//    public Page<BoardDto> searchPagedBoards(
+//            @RequestParam(defaultValue = "0") int page,
+//            @RequestParam(defaultValue = "2") int size) {
+//        Pageable pageable = PageRequest.of(page, size);
+//        return boardService.searchPagedBoards(pageable);
+//    }
 
     // 상세 게시글 조회
-    @GetMapping("/boardsDetail")
-    public List<BoardsDto> searchBoardsDetail() {
-        return boardService.searchBoardsDetail();
-    }
+//    @GetMapping("/boardsDetail")
+//    public List<BoardsDto> searchBoardsDetail() {
+//        return boardService.searchBoardsDetail();
+//    }
 
     // 게시글 생성
     @PostMapping("/board")

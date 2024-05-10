@@ -10,8 +10,8 @@ import java.util.List;
 
 
 public interface BoardRepository extends JpaRepository <Board, Long> {
-    List<Board> findByDeleteYnNot(DeleteYn deleteYn);
+   // List<Board> findByDeleteYnNot(DeleteYn deleteYn);
 
 
-    Page<Board> findByDeleteYnNot(DeleteYn deleteYn, Pageable pageable);
+    //Page<Board> findByDeleteYnNot(DeleteYn deleteYn, Pageable pageable);
 }

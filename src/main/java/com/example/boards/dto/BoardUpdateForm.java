@@ -33,4 +33,6 @@ public class BoardUpdateForm extends BaseEntity {
     private String phoneNo;
 
 
+
+
 }

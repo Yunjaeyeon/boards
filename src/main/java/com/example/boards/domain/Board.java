@@ -22,12 +22,12 @@ public class Board extends BaseEntity{
     private String content;
     private String email;
     private String phoneNo;
-    @Enumerated(EnumType.STRING)
-    private DeleteYn deleteYn;
+   // @Enumerated(EnumType.STRING)
+    //private DeleteYn deleteYn;
 
 
     @Builder
-    public Board(String userId, String userName, String password, String title, String content, String email, String phoneNo, DeleteYn deleteYn) {
+    public Board(String userId, String userName, String password, String title, String content, String email, String phoneNo) {
         this.userId = userId;
         this.userName = userName;
         this.password = password;
@@ -35,7 +35,7 @@ public class Board extends BaseEntity{
         this.content = content;
         this.email = email;
         this.phoneNo = phoneNo;
-        this.deleteYn = deleteYn;
+        //this.isDeleted = isDeleted();
     }
 
     public void updateBoard(
@@ -44,23 +44,23 @@ public class Board extends BaseEntity{
             String password,
             String title,
             String content,
-            DeleteYn deleteYn,
             String email,
             String phoneNo
+
     ) {
         this.userId = userId;
         this.userName = userName;
         this.password = password;
         this.title = title;
         this.content = content;
-        this.deleteYn = deleteYn;
         this.email = email;
         this.phoneNo = phoneNo;
 
     }
 
-    public void setDeleteYn(DeleteYn deleteYn) {
-        this.deleteYn = deleteYn;
+    public void setIsDeleted() {
+        this.isDeleted = true;
     }
+
 
 }
