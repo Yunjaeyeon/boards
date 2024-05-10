@@ -62,14 +62,13 @@ public class BoardService {
                         .content(boardForm.getContent())
                         .email(boardForm.getEmail())
                         .phoneNo(boardForm.getPhoneNo())
-                       // .deleteYn(DeleteYn.N)
                         .build()
         );
         return board.getId();
     }
 
     @Transactional
-    public MessageDto updateBoard(BoardUpdateForm boardUpdateForm) throws BadRequestException {
+    public MessageDto updateBoard(BoardUpdateForm boardUpdateForm) {
         Board board = boardRepository.findById(boardUpdateForm.getId())
                 .orElseThrow(() -> new EntityNotFoundException(""));
 
@@ -77,7 +76,26 @@ public class BoardService {
 
         long daysSinceCreation = ChronoUnit.DAYS.between(createTime, LocalDateTime.now().plusDays(1));
 
-        if (daysSinceCreation == 9) {
+        try {
+            if (daysSinceCreation == 9) {
+                board.updateBoard(
+                        boardUpdateForm.getUserId(),
+                        boardUpdateForm.getUserName(),
+                        boardUpdateForm.getPassword(),
+                        boardUpdateForm.getTitle(),
+                        boardUpdateForm.getContent(),
+                        boardUpdateForm.getEmail(),
+                        boardUpdateForm.getPhoneNo()
+                );
+                String message = "9일이 지났습니다!";
+                return new MessageDto(message);
+            }
+
+            if (daysSinceCreation >= 10) {
+                String message = "10일 지나면 안됩니다!";
+                throw new BadRequestException(message);
+            }
+
             board.updateBoard(
                     boardUpdateForm.getUserId(),
                     boardUpdateForm.getUserName(),
@@ -87,26 +105,12 @@ public class BoardService {
                     boardUpdateForm.getEmail(),
                     boardUpdateForm.getPhoneNo()
             );
-            String message = "9일지났음 !";
-            return new MessageDto(message);
+
+            return new MessageDto("성공 !");
+        } catch (BadRequestException e) {
+            // BadRequestException이 발생했을 때의 처리를 여기에 작성합니다.
+            return new MessageDto(e.getMessage());
         }
-
-        if (daysSinceCreation >= 10) {
-            String message = "10일 지나면 안됨 !";
-            throw new BadRequestException(message);
-        }
-
-        board.updateBoard(
-                boardUpdateForm.getUserId(),
-                boardUpdateForm.getUserName(),
-                boardUpdateForm.getPassword(),
-                boardUpdateForm.getTitle(),
-                boardUpdateForm.getContent(),
-                boardUpdateForm.getEmail(),
-                boardUpdateForm.getPhoneNo()
-        );
-
-        return new MessageDto("성공 !");
     }
 
     @Transactional

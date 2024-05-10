@@ -5,6 +5,7 @@ import com.example.boards.domain.DeleteYn;
 import jakarta.persistence.EnumType;
 import jakarta.persistence.Enumerated;
 import jakarta.validation.constraints.*;
+import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -31,6 +32,8 @@ public class BoardUpdateForm extends BaseEntity {
     private String email;
 
     private String phoneNo;
+
+
 
 
 

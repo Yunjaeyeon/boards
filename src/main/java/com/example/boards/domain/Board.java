@@ -11,7 +11,7 @@ import java.time.LocalDateTime;
 @Entity
 @Getter
 @NoArgsConstructor
-public class Board extends BaseEntity{
+public class Board extends BaseEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
@@ -22,7 +22,7 @@ public class Board extends BaseEntity{
     private String content;
     private String email;
     private String phoneNo;
-   // @Enumerated(EnumType.STRING)
+    // @Enumerated(EnumType.STRING)
     //private DeleteYn deleteYn;
 
 
@@ -35,7 +35,7 @@ public class Board extends BaseEntity{
         this.content = content;
         this.email = email;
         this.phoneNo = phoneNo;
-        //this.isDeleted = isDeleted();
+        this.isDeleted = isDeleted();
     }
 
     public void updateBoard(
@@ -46,17 +46,26 @@ public class Board extends BaseEntity{
             String content,
             String email,
             String phoneNo
-
     ) {
-        this.userId = userId;
-        this.userName = userName;
-        this.password = password;
-        this.title = title;
-        this.content = content;
-        this.email = email;
-        this.phoneNo = phoneNo;
+        Board updatedBoard = new Board(
+                userId,
+                userName,
+                password,
+                title,
+                content,
+                email,
+                phoneNo
+        );
 
+        this.userId = updatedBoard.getUserId();
+        this.userName = updatedBoard.getUserName();
+        this.password = updatedBoard.getPassword();
+        this.title = updatedBoard.getTitle();
+        this.content = updatedBoard.getContent();
+        this.email = updatedBoard.getEmail();
+        this.phoneNo = updatedBoard.getPhoneNo();
     }
+
 
     public void setIsDeleted() {
         this.isDeleted = true;
