@@ -42,25 +42,25 @@ public class BoardApiController {
     }
 
     // 게시글 생성
-    @PostMapping("/board")
+    @PostMapping("/boards")
     public Long createBoard(@RequestBody @Valid BoardForm boardForm) {
         return boardService.createBoard(boardForm);
     }
 
     // 게시글 업데이트
-    @PutMapping("/board")
+    @PutMapping("/boards")
     public MessageDto updateBoard(@RequestBody @Valid BoardUpdateForm boardUpdateForm){
         return boardService.updateBoard(boardUpdateForm);
     }
 
     // 게시글 삭제 여부 업데이트
-    @PutMapping("/boardDeleteYn")
+    @PutMapping("/boardsIsDeleted")
     public BoardDto updateDeleteYn(@RequestBody @Valid BoardUpdateForm boardUpdateForm) {
         return boardService.updateDeleteYn(boardUpdateForm);
     }
 
     // 게시글 삭제
-    @DeleteMapping("/board")
+    @DeleteMapping("/boards")
     public void removeBoard(@RequestBody BoardRemoveForm boardRemoveForm) {
         boardService.removeBoard(boardRemoveForm);
     }

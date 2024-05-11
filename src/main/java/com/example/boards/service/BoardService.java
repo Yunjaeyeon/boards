@@ -95,7 +95,7 @@ public class BoardService {
 
             if (daysSinceCreation >= 10) {
                 String message = "10일 지나면 안됩니다!";
-                throw new BadRequestException(message);
+                throw new IllegalStateException(message);
             }
 
             board.updateBoard(
@@ -109,7 +109,7 @@ public class BoardService {
             );
 
             return new MessageDto("성공 !");
-        } catch (BadRequestException e) {
+        } catch (IllegalStateException e) {
             return new MessageDto(e.getMessage());
         }
     }
