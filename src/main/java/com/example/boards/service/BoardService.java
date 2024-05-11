@@ -70,6 +70,7 @@ public class BoardService {
         return board.getId();
     }
 
+    @Transactional
     public MessageDto updateBoard(BoardUpdateForm boardUpdateForm) {
         Board board = boardRepository.findById(boardUpdateForm.getId())
                 .orElseThrow(() -> new EntityNotFoundException(""));
@@ -115,6 +116,7 @@ public class BoardService {
     }
 
 
+    @Transactional
     public BoardDto updateDeleteYn(BoardUpdateForm boardUpdateForm) {
         Board board = boardRepository.findById(boardUpdateForm.getId())
                 .orElseThrow(() -> new EntityNotFoundException(""));
@@ -124,6 +126,7 @@ public class BoardService {
     }
 
 
+    @Transactional
     public void removeBoard(BoardRemoveForm boardRemoveForm) {
         Board board = boardRepository.findById(boardRemoveForm.getId())
                 .orElseThrow(() -> new EntityNotFoundException(""));
