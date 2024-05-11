@@ -28,8 +28,10 @@ public class BoardService {
 
     private final BoardRepository boardRepository;
 
-    public List<BoardDto> searchBoards() {
-        List<Board> boards = boardRepository.findByIsDeletedFalse();
+    public List<BoardDto> searchBoards(Long id) {
+        List<Board> boards = boardRepository.findByIdAndIsDeletedFalse(id);
+        Board board = boardRepository.findById(id)
+                .orElseThrow(() -> new EntityNotFoundException(""));
         return boards.stream()
                 .map(BoardDto::of)
                 .collect(Collectors.toList());
@@ -52,6 +54,7 @@ public class BoardService {
                 .collect(Collectors.toList());
     }
 
+    @Transactional
     public Long createBoard(BoardForm boardForm) {
         Board board = boardRepository.save(
                 Board.builder()
@@ -67,7 +70,6 @@ public class BoardService {
         return board.getId();
     }
 
-    @Transactional
     public MessageDto updateBoard(BoardUpdateForm boardUpdateForm) {
         Board board = boardRepository.findById(boardUpdateForm.getId())
                 .orElseThrow(() -> new EntityNotFoundException(""));
@@ -112,7 +114,7 @@ public class BoardService {
         }
     }
 
-    @Transactional
+
     public BoardDto updateDeleteYn(BoardUpdateForm boardUpdateForm) {
         Board board = boardRepository.findById(boardUpdateForm.getId())
                 .orElseThrow(() -> new EntityNotFoundException(""));
@@ -121,7 +123,7 @@ public class BoardService {
         return BoardDto.of(board);
     }
 
-    @Transactional
+
     public void removeBoard(BoardRemoveForm boardRemoveForm) {
         Board board = boardRepository.findById(boardRemoveForm.getId())
                 .orElseThrow(() -> new EntityNotFoundException(""));

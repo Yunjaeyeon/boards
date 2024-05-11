@@ -9,7 +9,7 @@ import java.util.List;
 
 
 public interface BoardRepository extends JpaRepository <Board, Long> {
-    List<Board> findByIsDeletedFalse();
+    List<Board> findByIdAndIsDeletedFalse(Long id);
 
 
     Page<Board> findByIsDeletedFalse(Pageable pageable);

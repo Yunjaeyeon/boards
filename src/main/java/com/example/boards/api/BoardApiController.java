@@ -21,9 +21,9 @@ public class BoardApiController {
     private final BoardService boardService;
 
     // 모든 게시글 조회
-    @GetMapping("/boards")
-    public List<BoardDto> searchBoards() {
-        return boardService.searchBoards();
+    @GetMapping("/boards/{id}")
+    public List<BoardDto> searchBoards(@PathVariable Long id) {
+        return boardService.searchBoards(id);
     }
 
     // 페이징 처리된 모든 게시글 조회
