@@ -79,6 +79,11 @@ public class BoardService {
 
         long daysSinceCreation = ChronoUnit.DAYS.between(createTime, LocalDateTime.now().plusDays(1));
 
+        if (daysSinceCreation >= 10) {
+            String message = "10일 지나면 안됩니다!";
+            throw new IllegalStateException(message);
+        }
+
         try {
             if (daysSinceCreation == 9) {
                 board.updateBoard(
@@ -94,10 +99,6 @@ public class BoardService {
                 return new MessageDto(message);
             }
 
-            if (daysSinceCreation >= 10) {
-                String message = "10일 지나면 안됩니다!";
-                throw new IllegalStateException(message);
-            }
 
             board.updateBoard(
                     boardUpdateForm.getUserId(),
